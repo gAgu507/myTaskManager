@@ -1,0 +1,23 @@
+# Binaries
+bin/
+dist/
+
+# Go workspace files
+go.work
+
+# Dependency directories
+vendor/
+
+# IDE files
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Build artifacts
+*.exe
+*.out
+*.test
+*.prof
