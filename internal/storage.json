@@ -1,0 +1,38 @@
+[
+ {
+  "id": "550e8400-e29b-41d4-a716-446655440000",
+  "name": "Complete project proposal",
+  "description": "Write and submit the project proposal document",
+  "done": false
+ },
+ {
+  "id": "6ba7b810-9dad-11d1-80b4-00c04fd430c8",
+  "name": "Review code changes",
+  "description": "Check pull request #123 for any issues",
+  "done": false
+ },
+ {
+  "id": "6ba7b811-9dad-11d1-80b4-00c04fd430c9",
+  "name": "Prepare meeting agenda",
+  "description": "Create agenda for weekly team meeting",
+  "done": false
+ },
+ {
+  "id": "8b7bff84-920d-4465-8bda-cc2f7f34beb8",
+  "name": "Task 1",
+  "description": "Desc1",
+  "done": true
+ },
+ {
+  "id": "9eca258b-68b1-4c94-b194-127a35a61330",
+  "name": "Task 1",
+  "description": "Desc1",
+  "done": false
+ },
+ {
+  "id": "cacd86f6-da13-4de0-a36e-4d8bdb8c5791",
+  "name": "Задание1",
+  "description": "Ударить кого-нибудь",
+  "done": false
+ }
+]
