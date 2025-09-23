@@ -3,7 +3,6 @@ module github.com/gAgu507/myTaskManager
 go 1.24.4
 
 require (
-	github.com/google/uuid v1.6.0
 	github.com/spf13/cobra v1.10.1
 )
 

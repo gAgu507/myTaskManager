@@ -4,7 +4,6 @@ import (
 	"fmt"
 
 	"github.com/gAgu507/myTaskManager/internal"
-	"github.com/google/uuid"
 	"github.com/spf13/cobra"
 )
 
@@ -19,20 +18,30 @@ var (
 				status = true
 			}
 			task := internal.Task{
-				ID:          uuid.New(),
 				Name:        args[0],
 				Description: args[1],
 				Done:        status,
 			}
-
-			err := internal.Add(filename, &task)
-			if err != nil {
-				fmt.Printf("Error: %v\n", err)
+			match := CheckForMatch(task.Name)
+			fmt.Println("name checked")
+			if match {
+				fmt.Println("Name of task already exists!")
 				return
+			} else {
+				internal.Add(&task)
 			}
 		},
 	}
 )
+
+func CheckForMatch(name string) bool {
+	for _, task := range internal.Tasks {
+		if task.Name == name {
+			return true
+		}
+	}
+	return false
+}
 
 func init() {
 	rootCmd.AddCommand(addCmd)

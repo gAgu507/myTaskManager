@@ -1,63 +1,35 @@
 package internal
 
 import (
-	"encoding/json"
 	"fmt"
-	"os"
+)
 
-	"github.com/google/uuid"
+var (
+	Tasks []Task
 )
 
 type Task struct {
-	ID          uuid.UUID `json:"id"`
-	Name        string    `json:"name"`
-	Description string    `json:"description"`
-	Done        bool      `json:"done"`
+	Name        string `json:"name"`
+	Description string `json:"description"`
+	Done        bool   `json:"done"`
 }
 
-func Add(filename string, t *Task) error {
-	var tasks []Task
-	data, err := os.ReadFile(filename)
-	if err != nil && !os.IsNotExist(err) {
-		return fmt.Errorf("error while reading a file: %v", err)
-	}
-
-	if len(data) > 0 {
-		if err := json.Unmarshal(data, &tasks); err != nil {
-			return fmt.Errorf("error while parsing existing file %v", err)
-		}
-	}
-
-	tasks = append(tasks, *t)
-
-	newData, err := json.MarshalIndent(tasks, "", " ")
-	if err != nil {
-		return fmt.Errorf("error marshaling task to json format. %v", err)
-	}
-	if err := os.WriteFile(filename, newData, 0644); err != nil {
-		return fmt.Errorf("error writing into a json file. %v", err)
-	}
-
-	fmt.Println("Task's added.")
-	return nil
+func Add(t *Task) {
+	Tasks = append(Tasks, *t)
 }
 
-func List(filename string) error {
-	var tasks []Task
-	data, err := os.ReadFile(filename)
-	if err != nil && !os.IsNotExist(err) {
-		return fmt.Errorf("error while reading a file: %v", err)
-	}
-
-	if len(data) > 0 {
-		if err := json.Unmarshal(data, &tasks); err != nil {
-			return fmt.Errorf("error while parsing existing file %v", err)
+func Delete(name string) {
+	for i, task := range Tasks {
+		if task.Name == name {
+			Tasks = append(Tasks[:i], Tasks[i+1:]...)
 		}
 	}
-	for i, task := range tasks {
+}
+
+func List() {
+	for i, task := range Tasks {
 		fmt.Println(i+1, task)
 	}
-	return nil
 }
 
 func (t Task) String() string {
@@ -68,4 +40,34 @@ func (t Task) String() string {
 		status = "To Do"
 	}
 	return fmt.Sprintf("%v - %v. | %v", t.Name, t.Description, status)
+}
+
+func Check(name string) {
+	for _, task := range Tasks {
+		fmt.Printf("Got: %v - Have: %v\n", task.Name, name)
+		if task.Name == name {
+			fmt.Println("Entered equality scope")
+			if task.Done {
+				fmt.Println("Task is already done!")
+				return
+			} else {
+				fmt.Println("Entered equality scope, where it should be changed")
+				task.Done = true
+				fmt.Println(task.Done)
+			}
+		}
+	}
+}
+
+func Uncheck(name string) {
+	for _, task := range Tasks {
+		if task.Name == name {
+			if !task.Done {
+				fmt.Println("Task is not done yet!")
+				return
+			} else {
+				task.Done = false
+			}
+		}
+	}
 }

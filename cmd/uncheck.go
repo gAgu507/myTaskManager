@@ -6,16 +6,16 @@ import (
 )
 
 var (
-	listCmd = &cobra.Command{
-		Use:   "list",
-		Short: "Lists all tasks",
-		Args:  cobra.ExactArgs(0),
+	uncheckCmd = &cobra.Command{
+		Use:   "uncheck",
+		Short: "unchecks the task",
+		Args:  cobra.ExactArgs(1),
 		Run: func(cmd *cobra.Command, args []string) {
-			internal.List()
+			internal.Uncheck(args[0])
 		},
 	}
 )
 
 func init() {
-	rootCmd.AddCommand(listCmd)
+	rootCmd.AddCommand(uncheckCmd)
 }
