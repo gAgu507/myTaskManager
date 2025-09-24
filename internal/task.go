@@ -39,34 +39,30 @@ func (t Task) String() string {
 	} else {
 		status = "To Do"
 	}
-	return fmt.Sprintf("%v - %v. | %v", t.Name, t.Description, status)
+	return fmt.Sprintf("%v - %v. | %v\n", t.Name, t.Description, status)
 }
 
 func Check(name string) {
-	for _, task := range Tasks {
-		fmt.Printf("Got: %v - Have: %v\n", task.Name, name)
+	for i, task := range Tasks {
 		if task.Name == name {
-			fmt.Println("Entered equality scope")
 			if task.Done {
 				fmt.Println("Task is already done!")
 				return
 			} else {
-				fmt.Println("Entered equality scope, where it should be changed")
-				task.Done = true
-				fmt.Println(task.Done)
+				Tasks[i].Done = true
 			}
 		}
 	}
 }
 
 func Uncheck(name string) {
-	for _, task := range Tasks {
+	for i, task := range Tasks {
 		if task.Name == name {
 			if !task.Done {
 				fmt.Println("Task is not done yet!")
 				return
 			} else {
-				task.Done = false
+				Tasks[i].Done = false
 			}
 		}
 	}
